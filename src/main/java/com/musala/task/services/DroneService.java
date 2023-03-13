@@ -3,17 +3,17 @@ package com.musala.task.services;
 import com.musala.task.entities.Drone;
 import com.musala.task.enums.StateEnum;
 import com.musala.task.repositories.DroneRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class DroneService {
 
-    @Autowired
-    DroneRepository droneRepository;
+    final DroneRepository droneRepository;
 
     public List<Drone> getAllDrones() {
         return new ArrayList<>(droneRepository.findAll());
@@ -32,9 +32,7 @@ public class DroneService {
     }
 
     public List<Drone> getAvailableDronesForLoading() {
-        List<Drone> dronesList = new ArrayList<>();
-        dronesList = droneRepository.findByStateAndBatteryCapacityGreaterThanEqual(StateEnum.IDLE, 25);
-        return dronesList;
+        return droneRepository.findByStateAndBatteryCapacityGreaterThanEqual(StateEnum.IDLE, 25);
     }
 
 }
