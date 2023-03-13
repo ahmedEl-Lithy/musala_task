@@ -1,11 +1,11 @@
 package com.musala.task.controllers;
 
+import com.musala.task.commands.MedicationCommand;
 import com.musala.task.entities.Drone;
 import com.musala.task.services.DroneService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Validated
+//@Validated
 public class DroneController {
     final DroneService droneService;
 
@@ -30,7 +30,7 @@ public class DroneController {
 
     @GetMapping("/drones/{id}/battery")
     private ResponseEntity<?> getDroneBatteryLevel(@PathVariable("id") int id) {
-        Drone drone = droneService.getDroneById(id);
+        Drone drone = droneService.retreiveDrone(id);
         return new ResponseEntity<>("Battery level for the Drone is: " + drone.getBatteryCapacity(), HttpStatus.OK);
     }
 
@@ -39,13 +39,12 @@ public class DroneController {
         return droneService.getAvailableDronesForLoading();
     }
 
-//    @PostMapping(value = "drones/{id}/load", consumes = {"multipart/form-data"})
-//    private ResponseEntity<?> loadDroneWithMedication(@RequestParam("images") MultipartFile file
-////            ,  @RequestParam ("medicine") MedicationCommand medicationCommandList) {
-//            ,  @RequestParam ("medicine") String medicationCommandList) {
-//        System.out.println("medications " + medicationCommandList);
-//        System.out.println("file " + file);
-//        return null;
-//    }
+    @PostMapping("drones/{id}/load")
+    private ResponseEntity<?> loadDroneWithMedication(@Valid @RequestBody List<MedicationCommand> medicationCommand) {
+        medicationCommand.forEach(MedicationCommand::toString);
+//        byte[] imageByte= Base64.decodeBase64(encodedImage);
+
+        return null;
+    }
 
 }
