@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,4 +26,7 @@ public class Drone {
     private int batteryCapacity;
     @Enumerated(EnumType.STRING)
     private StateEnum state;
+
+    @OneToMany(mappedBy = "drone", cascade = CascadeType.ALL)
+    private List<Medication> medicationsList;
 }

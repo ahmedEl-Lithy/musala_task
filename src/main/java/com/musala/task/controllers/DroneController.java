@@ -2,7 +2,9 @@ package com.musala.task.controllers;
 
 import com.musala.task.commands.MedicationCommand;
 import com.musala.task.entities.Drone;
+import com.musala.task.entities.Medication;
 import com.musala.task.services.DroneService;
+import com.musala.task.services.MedicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import java.util.List;
 //@Validated
 public class DroneController {
     final DroneService droneService;
+    final MedicationService medicationService;
 
     @GetMapping("/drones")
     private List<Drone> getAllDrones() {
@@ -40,11 +43,18 @@ public class DroneController {
     }
 
     @PostMapping("drones/{id}/load")
-    private ResponseEntity<?> loadDroneWithMedication(@Valid @RequestBody List<MedicationCommand> medicationCommand) {
-        medicationCommand.forEach(MedicationCommand::toString);
-//        byte[] imageByte= Base64.decodeBase64(encodedImage);
+    private ResponseEntity<?> loadDroneWithMedication(@PathVariable("id") int droneId,
+                                                      @Valid @RequestBody List<MedicationCommand> medicationList) {
 
-        return null;
+        droneService.loadDroneWithMedication(droneId, medicationList);
+        return new ResponseEntity<>("Drone loaded successfully with medication", HttpStatus.CREATED);
+    }
+
+    @GetMapping("drones/{id}/medication")
+    private List<Medication> getDroneMedications(@PathVariable("id") Long droneId) {
+
+        List<Medication> medicationList = medicationService.retrieveDroneMedications(droneId);
+        return medicationList;
     }
 
 }
