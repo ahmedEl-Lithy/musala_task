@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
-@ToString
+//@ToString
 @NoArgsConstructor
 @Entity
 public class Medication {
@@ -26,10 +26,10 @@ public class Medication {
     @Pattern(regexp = "^[A-Z0-9_]*$", message = "Invalid code pattern!")
     private String code;
 
-    @Lob
-    private byte[] image;
+    private String imageName;
+
+    private String physicalImageName;
 
     @ManyToOne
-//    @JoinColumn(name="drone_id", nullable=false)
     private Drone drone;
 }

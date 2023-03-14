@@ -1,19 +1,17 @@
-package com.musala.task.commands;
+package com.musala.task.dto;
 
-import com.musala.task.entities.Drone;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class MedicationCommand {
+public class MedicationRequestDto {
     @Pattern(regexp = "^[a-zA-Z0-9_-]*$", message = "Invalid name pattern!")
     private String name;
     private String weight;
@@ -22,4 +20,5 @@ public class MedicationCommand {
     private String code;
 
     private String image;
+    private String imageName;
 }
