@@ -13,16 +13,18 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import static com.musala.task.utils.Utils.encodeFileToBase64Binary;
+import static com.musala.task.utils.Utils.saveMedicationImageToPath;
 
 @RestController
 @RequiredArgsConstructor
 //@Validated
-public class DroneController {
+public class MainController {
     final DroneService droneService;
     final MedicationService medicationService;
 
@@ -53,9 +55,8 @@ public class DroneController {
 
     @PostMapping("drones/{id}/load")
     private ResponseEntity<?> loadDroneWithMedication(@PathVariable("id") int droneId,
-                                                      @Valid @RequestBody List<MedicationRequestDto> medicationRequestDtoList) {
+                                                      @Valid @RequestBody List<MedicationRequestDto> medicationRequestDtoList) throws IOException {
         List<Medication> medicationList = new ArrayList<>();
-        List<String> base64List = new ArrayList<>();
         for (MedicationRequestDto medicationRequestDto : medicationRequestDtoList) {
             Medication medication = new Medication();
             medication.setCode(medicationRequestDto.getCode());
@@ -64,13 +65,14 @@ public class DroneController {
             medication.setImageName(medicationRequestDto.getImageName());
             medication.setPhysicalImageName(UUID.randomUUID().toString());
             medicationList.add(medication);
-            base64List.add(medicationRequestDto.getImage());
+
+            saveMedicationImageToPath(medicationRequestDto.getImage(), medication.getPhysicalImageName());
         }
-        droneService.loadDroneWithMedication(droneId, medicationList, base64List);
+        medicationService.loadMedication(droneId, medicationList);
         return new ResponseEntity<>("Drone loaded successfully with medication", HttpStatus.CREATED);
     }
 
-    @GetMapping("drones/{id}/medication")
+    @GetMapping("/drones/{id}/medication")
     private List<MedicationRequestDto> getDroneMedications(@PathVariable("id") Long droneId) {
 
         List<Medication> medicationList = medicationService.retrieveDroneMedications(droneId);
@@ -81,8 +83,10 @@ public class DroneController {
             medicationRequestDto.setWeight(medication.getWeight());
             medicationRequestDto.setCode(medication.getCode());
             medicationRequestDto.setImageName(medication.getImageName());
-            File f = new File(imagePath + medication.getPhysicalImageName() + ".jpg");
-            String encodstring = encodeFileToBase64Binary(f);
+
+            File file = new File(imagePath + medication.getPhysicalImageName() + ".jpg");
+            String encodstring = encodeFileToBase64Binary(file);
+
             medicationRequestDto.setImage(encodstring);
 
             medicationRequestDtoList.add(medicationRequestDto);
