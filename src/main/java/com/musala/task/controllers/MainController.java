@@ -21,6 +21,12 @@ import java.util.UUID;
 import static com.musala.task.utils.Utils.encodeFileToBase64Binary;
 import static com.musala.task.utils.Utils.saveMedicationImageToPath;
 
+//TODO: check caching map for application startup
+//TODO: check logfile as it logs everything, not the battery checking
+//TODO: check validation for medicine&drone creation
+//TODO: remove some of the DDL queries
+//TODO: fix README file
+//TODO: refactor
 @RestController
 @RequiredArgsConstructor
 //@Validated
