@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
-public class ControllerExceptionHandler {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(MaxTenDronesException.class)
     public ResponseEntity<ErrorMessage> ReachedMaxTenDronesExceptionHandler(MaxTenDronesException ex, WebRequest request) {

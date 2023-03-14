@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 public class MedicationRequestDto {
     @Pattern(regexp = "^[a-zA-Z0-9_-]*$", message = "Invalid name pattern!")
     private String name;
-    private String weight;
+    private int weight;
 
     @Pattern(regexp = "^[A-Z0-9_]*$", message = "Invalid code pattern!")
     private String code;
