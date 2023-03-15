@@ -22,15 +22,14 @@ public class MedicationService {
 
     public void loadMedication(int droneId, List<Medication> medicationList) {
         Drone drone = droneService.retreiveDrone(droneId);
-        long sumWeights = medicationRepository.findByDroneId((long) droneId)
-                .stream().map(Medication::getWeight)
-                .mapToInt(Integer::intValue).sum();
 
         int medicationsWeight = medicationList.stream()
                 .map(Medication::getWeight).mapToInt(Integer::intValue).sum();
 
-        if ((sumWeights + medicationsWeight) < drone.getWeightLimit()) {
+        int sumWeights = drone.getWeightSum() + medicationsWeight;
+        if (sumWeights < drone.getWeightLimit()) {
             medicationList.forEach(medication -> medication.setDrone(drone));
+            drone.setWeightSum(sumWeights);
             medicationRepository.saveAll(medicationList);
         } else {
             throw new ReachedDroneCapcaityException("Reached Drone Weight Capacity");

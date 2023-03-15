@@ -31,6 +31,8 @@ public class Drone {
     @NotNull(message = "[state] cannot be empty")
     private StateEnum state;
 
+    private int weightSum;
+
     @OneToMany(mappedBy = "drone")
     private List<Medication> medicationsList;
 }
