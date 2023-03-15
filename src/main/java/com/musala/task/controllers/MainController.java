@@ -1,5 +1,6 @@
 package com.musala.task.controllers;
 
+import com.musala.task.dto.DroneRequestDto;
 import com.musala.task.dto.MedicationRequestDto;
 import com.musala.task.entities.Drone;
 import com.musala.task.entities.Medication;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,15 +23,11 @@ import java.util.UUID;
 import static com.musala.task.utils.Utils.encodeFileToBase64Binary;
 import static com.musala.task.utils.Utils.saveMedicationImageToPath;
 
-//TODO: check caching map for application startup
-//TODO: check logfile as it logs everything, not the battery checking
 //TODO: check validation for medicine&drone creation
-//TODO: remove some of the DDL queries
 //TODO: fix README file
 //TODO: refactor
-@RestController
 @RequiredArgsConstructor
-//@Validated
+@RestController
 public class MainController {
     final DroneService droneService;
     final MedicationService medicationService;
@@ -42,8 +40,16 @@ public class MainController {
         return droneService.getAllDrones();
     }
 
+    @Validated
     @PostMapping("/drones")
-    private ResponseEntity<?> createDrone(@Valid @RequestBody Drone drone) {
+    private ResponseEntity<?> createDrone(@Valid @RequestBody DroneRequestDto droneRequestDto) {
+        Drone drone = new Drone();
+        drone.setSerialNumber(droneRequestDto.getSerialNumber());
+        drone.setState(droneRequestDto.getState());
+        drone.setModel(droneRequestDto.getModel());
+        drone.setWeightLimit(droneRequestDto.getWeightLimit());
+        drone.setBatteryCapacity(droneRequestDto.getBatteryCapacity());
+
         droneService.registerDrone(drone);
         return new ResponseEntity<>("New Drone created with id: " + drone.getId(), HttpStatus.CREATED);
     }
@@ -59,6 +65,7 @@ public class MainController {
         return droneService.getAvailableDronesForLoading();
     }
 
+    @Validated
     @PostMapping("drones/{id}/load")
     private ResponseEntity<?> loadDroneWithMedication(@PathVariable("id") int droneId,
                                                       @Valid @RequestBody List<MedicationRequestDto> medicationRequestDtoList) throws IOException {
