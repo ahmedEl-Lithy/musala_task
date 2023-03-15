@@ -23,9 +23,6 @@ import java.util.UUID;
 import static com.musala.task.utils.Utils.encodeFileToBase64Binary;
 import static com.musala.task.utils.Utils.saveMedicationImageToPath;
 
-//TODO: check validation for medicine&drone creation
-//TODO: fix README file
-//TODO: refactor
 @RequiredArgsConstructor
 @RestController
 public class MainController {
