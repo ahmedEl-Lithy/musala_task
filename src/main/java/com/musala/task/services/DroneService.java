@@ -1,10 +1,9 @@
 package com.musala.task.services;
 
-import com.musala.task.entities.Drone;
+import com.musala.task.models.Drone;
 import com.musala.task.enums.StateEnum;
-import com.musala.task.exceptions.MaxTenDronesException;
+import com.musala.task.customexception.MaxTenDronesException;
 import com.musala.task.repositories.DroneRepository;
-import com.musala.task.repositories.MedicationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -14,7 +13,6 @@ import java.util.*;
 public class DroneService {
 
     final DroneRepository droneRepository;
-//    final MedicationRepository medicationRepository;
     final int maxFleetSize = 10;
 
     public List<Drone> getAllDrones() {

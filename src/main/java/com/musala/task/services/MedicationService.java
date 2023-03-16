@@ -1,8 +1,9 @@
 package com.musala.task.services;
 
-import com.musala.task.entities.Drone;
-import com.musala.task.entities.Medication;
-import com.musala.task.exceptions.ReachedDroneCapcaityException;
+import com.musala.task.models.Drone;
+import com.musala.task.models.Medication;
+import com.musala.task.customexception.ReachedDroneCapcaityException;
+import com.musala.task.repositories.DroneRepository;
 import com.musala.task.repositories.MedicationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,16 +15,14 @@ import java.util.List;
 public class MedicationService {
 
     final MedicationRepository medicationRepository;
-
-    //TODO: change to droneRepo
-    final DroneService droneService;
+    final DroneRepository droneRepository;
 
     public List<Medication> retrieveDroneMedications(Long droneId) {
         return medicationRepository.findByDroneId(droneId);
     }
 
     public void loadMedication(int droneId, List<Medication> medicationList) {
-        Drone drone = droneService.retreiveDrone(droneId);
+        Drone drone = droneRepository.getById((long) droneId);
 
         int medicationsWeight = medicationList.stream()
                 .map(Medication::getWeight).mapToInt(Integer::intValue).sum();

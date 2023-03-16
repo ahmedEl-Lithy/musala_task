@@ -1,4 +1,4 @@
-package com.musala.task.dto;
+package com.musala.task.dtos;
 
 import com.musala.task.enums.ModelEnum;
 import com.musala.task.enums.StateEnum;

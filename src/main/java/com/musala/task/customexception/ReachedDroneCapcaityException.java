@@ -1,4 +1,4 @@
-package com.musala.task.exceptions;
+package com.musala.task.customexception;
 
 public class ReachedDroneCapcaityException extends RuntimeException {
 

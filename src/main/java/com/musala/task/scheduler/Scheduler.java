@@ -1,6 +1,6 @@
 package com.musala.task.scheduler;
 
-import com.musala.task.entities.Drone;
+import com.musala.task.models.Drone;
 import com.musala.task.services.DroneService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,18 +21,14 @@ public class Scheduler {
 
     private static int generateRandomNumber() {
         Random randI = new Random();
-        int batteryCapacity = randI.nextInt(100);
-        batteryCapacity = batteryCapacity + 1;
 
-        return batteryCapacity;
+        return randI.nextInt(100);
     }
 
     @Scheduled(fixedRate = 10000)
     public void scheduleBatteryChecking() {
         List<Drone> dronesList = droneService.getAllDrones();
 
-        dronesList.forEach(drone -> {
-            log.info("Drone with [SerialNumber] " + drone.getSerialNumber() + " has battery of " + generateRandomNumber() + "%");
-        });
+        dronesList.forEach(drone -> log.info("Drone with [SerialNumber] " + drone.getSerialNumber() + " has battery of " + generateRandomNumber() + "%"));
     }
 }

@@ -1,4 +1,4 @@
-package com.musala.task.entities;
+package com.musala.task.models;
 
 import lombok.Data;
 

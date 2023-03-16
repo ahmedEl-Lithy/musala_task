@@ -1,4 +1,4 @@
-package com.musala.task.dto;
+package com.musala.task.dtos;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

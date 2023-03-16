@@ -1,6 +1,5 @@
 package com.musala.task.utils;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -12,15 +11,9 @@ import java.nio.file.Paths;
 import java.util.Base64;
 
 @Component
-public class Utils {
-//TODO: rename to imageUtil
-    static String imagePath2 = "D:/musala_task/images/";
-    //TODO:check why it's not working as static
-    @Value("${image.path}")
-    String imagePath;
-
+public class ImageUtils {
     public static String encodeFileToBase64Binary(File file) throws IOException {
-        String encodedFile = null;
+        String encodedFile;
         try {
             FileInputStream fileInputStreamReader = new FileInputStream(file);
             byte[] bytes = new byte[(int) file.length()];
@@ -34,10 +27,9 @@ public class Utils {
         return encodedFile;
     }
 
-    public static void saveMedicationImageToPath(String base64Image, String imageName) throws IOException {
-        //TODO: take path also as param
-        Files.createDirectories(Paths.get(imagePath2));
-        try (OutputStream stream = Files.newOutputStream(Paths.get(imagePath2 + imageName + ".jpg"))) {
+    public static void saveMedicationImageToPath(String base64Image, String imageName, String path) throws IOException {
+        Files.createDirectories(Paths.get(path));
+        try (OutputStream stream = Files.newOutputStream(Paths.get(path + imageName + ".jpg"))) {
             byte[] imageByte = org.apache.tomcat.util.codec.binary.Base64.decodeBase64(base64Image);
             stream.write(imageByte);
         } catch (IOException e) {
