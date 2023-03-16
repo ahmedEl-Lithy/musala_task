@@ -1,10 +1,10 @@
 package com.musala.task.customexception;
 
-public class MaxTenDronesException extends RuntimeException {
+public class ReachedMaxDronesException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
 
-  public MaxTenDronesException(String msg) {
+  public ReachedMaxDronesException(String msg) {
     super(msg);
   }
 }

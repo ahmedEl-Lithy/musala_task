@@ -1,7 +1,7 @@
 package com.musala.task.exceptionhandler;
 
 import com.musala.task.dtos.ErrorMessageDto;
-import com.musala.task.customexception.MaxTenDronesException;
+import com.musala.task.customexception.ReachedMaxDronesException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(MaxTenDronesException.class)
-    public ResponseEntity<ErrorMessageDto> ReachedMaxTenDronesExceptionHandler(MaxTenDronesException ex, WebRequest request) {
+    @ExceptionHandler(ReachedMaxDronesException.class)
+    public ResponseEntity<ErrorMessageDto> ReachedMaxTenDronesExceptionHandler(ReachedMaxDronesException ex, WebRequest request) {
         ErrorMessageDto message = new ErrorMessageDto(
                 HttpStatus.BAD_REQUEST.value(),
                 new Date(),

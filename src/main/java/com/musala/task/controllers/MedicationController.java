@@ -3,7 +3,7 @@ package com.musala.task.controllers;
 import com.musala.task.dtos.MedicationRequestDto;
 import com.musala.task.dtos.MedicationResponseDto;
 import com.musala.task.models.Medication;
-import com.musala.task.interfaces.MedicationObjMapper;
+import com.musala.task.mappers.MedicationObjMapper;
 import com.musala.task.services.MedicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

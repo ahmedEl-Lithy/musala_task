@@ -2,7 +2,7 @@ package com.musala.task.services;
 
 import com.musala.task.models.Drone;
 import com.musala.task.enums.StateEnum;
-import com.musala.task.customexception.MaxTenDronesException;
+import com.musala.task.customexception.ReachedMaxDronesException;
 import com.musala.task.repositories.DroneRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class DroneService {
     public void registerDrone(Drone drone) {
         List<Drone> dronesList = getAllDrones();
         if (dronesList.size() == maxFleetSize) {
-            throw new MaxTenDronesException("Reached max fleet Capacity");
+            throw new ReachedMaxDronesException("Reached max fleet Capacity");
         } else {
             droneRepository.save(drone);
         }

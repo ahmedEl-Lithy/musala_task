@@ -1,4 +1,4 @@
-package com.musala.task.interfaces;
+package com.musala.task.mappers;
 
 import com.musala.task.dtos.MedicationRequestDto;
 import com.musala.task.dtos.MedicationResponseDto;

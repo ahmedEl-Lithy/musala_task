@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
 @Setter
 @ToString
 @NoArgsConstructor
-public class DroneRequestDto {
+public class RegisterDroneRequestDto {
     @Size(max = 100, message = "[serialNumber] must be max of 100 characters")
     @Pattern(regexp = "^[a-zA-Z]*$", message = "Invalid [serialNumber] pattern!")
     @NotBlank(message = "[serialNumber] cannot be empty")

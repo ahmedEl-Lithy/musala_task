@@ -1,9 +1,9 @@
 package com.musala.task.controllers;
 
-import com.musala.task.dtos.DroneRequestDto;
-import com.musala.task.dtos.DroneResponseDto;
+import com.musala.task.dtos.AvaliableDroneResponseDto;
+import com.musala.task.dtos.RegisterDroneRequestDto;
 import com.musala.task.models.Drone;
-import com.musala.task.interfaces.DroneObjMapper;
+import com.musala.task.mappers.DroneObjMapper;
 import com.musala.task.services.DroneService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,8 +27,8 @@ public class DroneController {
 
     @Validated
     @PostMapping("/drones")
-    private ResponseEntity<?> createDrone(@Valid @RequestBody DroneRequestDto droneRequestDto) {
-        Drone drone = DroneObjMapper.INSTANCE.droneDtoToDrone(droneRequestDto);
+    private ResponseEntity<?> createDrone(@Valid @RequestBody RegisterDroneRequestDto registerDroneRequestDto) {
+        Drone drone = DroneObjMapper.INSTANCE.registerDroneDtoToDrone(registerDroneRequestDto);
         droneService.registerDrone(drone);
         return new ResponseEntity<>("New Drone created with id: " + drone.getId(), HttpStatus.CREATED);
     }
@@ -40,14 +40,14 @@ public class DroneController {
     }
 
     @GetMapping("/drones/available")
-    private List<DroneResponseDto> getAvailableDronesForLoading() {
+    private List<AvaliableDroneResponseDto> getAvailableDronesForLoading() {
 
         List<Drone> dronesList = droneService.getAvailableDronesForLoading();
-        List<DroneResponseDto> droneResponseDtos = new ArrayList<>();
+        List<AvaliableDroneResponseDto> avaliableDroneResponseDtos = new ArrayList<>();
         dronesList.forEach(drone -> {
-            DroneResponseDto droneResponseDto = DroneObjMapper.INSTANCE.droneToDroneResponseDto(drone);
-            droneResponseDtos.add(droneResponseDto);
+            AvaliableDroneResponseDto avaliableDroneResponseDto = DroneObjMapper.INSTANCE.droneToAvaliableDroneResponseDto(drone);
+            avaliableDroneResponseDtos.add(avaliableDroneResponseDto);
         });
-        return droneResponseDtos;
+        return avaliableDroneResponseDtos;
     }
 }

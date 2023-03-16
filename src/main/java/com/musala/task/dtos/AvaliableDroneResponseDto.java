@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class DroneResponseDto {
+public class AvaliableDroneResponseDto {
     private Long id;
     private String serialNumber;
 
