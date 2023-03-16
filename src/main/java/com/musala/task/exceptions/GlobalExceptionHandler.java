@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
+//TODO: move to exceptionHandler package
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MaxTenDronesException.class)

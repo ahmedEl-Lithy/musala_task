@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class ErrorMessage {
+  //TODO: move to DTO
   private int statusCode;
   private Date timestamp;
   private List<String> message;

@@ -13,13 +13,13 @@ import java.util.Base64;
 
 @Component
 public class Utils {
-
+//TODO: rename to imageUtil
     static String imagePath2 = "D:/musala_task/images/";
     //TODO:check why it's not working as static
     @Value("${image.path}")
     String imagePath;
 
-    public static String encodeFileToBase64Binary(File file) {
+    public static String encodeFileToBase64Binary(File file) throws IOException {
         String encodedFile = null;
         try {
             FileInputStream fileInputStreamReader = new FileInputStream(file);
@@ -28,18 +28,21 @@ public class Utils {
             encodedFile = Base64.getEncoder().encodeToString(bytes);
         } catch (IOException e) {
             e.printStackTrace();
+            throw e;
         }
 
         return encodedFile;
     }
 
     public static void saveMedicationImageToPath(String base64Image, String imageName) throws IOException {
+        //TODO: take path also as param
         Files.createDirectories(Paths.get(imagePath2));
         try (OutputStream stream = Files.newOutputStream(Paths.get(imagePath2 + imageName + ".jpg"))) {
             byte[] imageByte = org.apache.tomcat.util.codec.binary.Base64.decodeBase64(base64Image);
             stream.write(imageByte);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw e;
         }
     }
 }

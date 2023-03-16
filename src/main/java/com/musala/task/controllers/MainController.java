@@ -26,6 +26,7 @@ import static com.musala.task.utils.Utils.saveMedicationImageToPath;
 @RequiredArgsConstructor
 @RestController
 public class MainController {
+    //todo: split into two
     final DroneService droneService;
     final MedicationService medicationService;
 
@@ -40,6 +41,8 @@ public class MainController {
     @Validated
     @PostMapping("/drones")
     private ResponseEntity<?> createDrone(@Valid @RequestBody DroneRequestDto droneRequestDto) {
+        //todo: mapstruct
+        //todo: create response DTO per method
         Drone drone = new Drone();
         drone.setSerialNumber(droneRequestDto.getSerialNumber());
         drone.setState(droneRequestDto.getState());

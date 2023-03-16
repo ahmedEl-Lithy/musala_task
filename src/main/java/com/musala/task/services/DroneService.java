@@ -14,7 +14,7 @@ import java.util.*;
 public class DroneService {
 
     final DroneRepository droneRepository;
-    final MedicationRepository medicationRepository;
+//    final MedicationRepository medicationRepository;
     final int maxFleetSize = 10;
 
     public List<Drone> getAllDrones() {

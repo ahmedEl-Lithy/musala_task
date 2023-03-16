@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 @Data
 public class Drone {
+    //TODO: rename package to models
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

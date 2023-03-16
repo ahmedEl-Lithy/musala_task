@@ -14,6 +14,8 @@ import java.util.List;
 public class MedicationService {
 
     final MedicationRepository medicationRepository;
+
+    //TODO: change to droneRepo
     final DroneService droneService;
 
     public List<Medication> retrieveDroneMedications(Long droneId) {
